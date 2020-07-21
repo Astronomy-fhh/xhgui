@@ -51,6 +51,17 @@ class Xhgui_Searcher_Mongo implements Xhgui_Searcher_Interface
         )));
     }
 
+    public function getBy_req_id($req_id)
+    {
+        $a = $this->_collection->find(array(
+            'req_id' => '12'
+        ));
+        $b = $this->_wrap($a);
+        return $this->_wrap($this->_collection->findOne(array(
+            'req_id' => '12'
+        )));
+    }
+
     /**
      * {@inheritdoc}
      */

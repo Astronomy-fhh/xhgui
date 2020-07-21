@@ -1,6 +1,6 @@
 <?php
 /**
- * Boostrapping and common utility definition.
+ * Boostrapping and common utility definition. 引导和公共工具定义
  */
 define('XHGUI_ROOT_DIR', dirname(__DIR__));
 

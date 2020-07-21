@@ -1,4 +1,6 @@
 <?php
+
+//入口 webroot/index.php
 require dirname(__DIR__) . '/src/bootstrap.php';
 
 $di = new Xhgui_ServiceContainer();

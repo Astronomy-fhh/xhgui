@@ -68,45 +68,45 @@ class Xhgui_ServiceContainer extends Pimple
      * Add common service objects to the container.
      */
     protected function _services()
-    {
-        $this['config'] = Xhgui_Config::all();
+                {
+                $this['config'] = Xhgui_Config::all();
 
-        $this['db'] = $this->share(function ($c) {
-            $config = $c['config'];
-            if (empty($config['db.options'])) {
-                $config['db.options'] = array();
-            }
-            if (empty($config['db.driverOptions'])) {
-                $config['db.driverOptions'] = array();
-            }
-            $mongo = new MongoClient($config['db.host'], $config['db.options'], $config['db.driverOptions']);
-            $mongo->{$config['db.db']}->results->findOne();
+                    $this['db'] = $this->share(function ($c) {
+                        $config = $c['config'];
+                        if (empty($config['db.options'])) {
+                            $config['db.options'] = array();
+                        }
+                        if (empty($config['db.driverOptions'])) {
+                            $config['db.driverOptions'] = array();
+                        }
+                        $mongo = new MongoClient($config['db.host'], $config['db.options'], $config['db.driverOptions']);
+                        $mongo->{$config['db.db']}->results->findOne();
 
-            return $mongo->{$config['db.db']};
-        });
+                        return $mongo->{$config['db.db']};
+                    });
 
-        $this['pdo'] = $this->share(function ($c) {
-            return new PDO(
-                $c['config']['pdo']['dsn'],
-                $c['config']['pdo']['pass'],
-                $c['config']['pdo']['user']
-            );
-        });
+                    $this['pdo'] = $this->share(function ($c) {
+                        return new PDO(
+                            $c['config']['pdo']['dsn'],
+                            $c['config']['pdo']['pass'],
+                            $c['config']['pdo']['user']
+                        );
+                    });
 
-        $this['searcher.mongo'] = function ($c) {
-            return new Xhgui_Searcher_Mongo($c['db']);
-        };
+                    $this['searcher.mongo'] = function ($c) {
+                        return new Xhgui_Searcher_Mongo($c['db']);
+                    };
 
-        $this['searcher.pdo'] = function ($c) {
-            return new Xhgui_Searcher_Pdo($c['pdo'], $c['config']['pdo']['table']);
-        };
+                    $this['searcher.pdo'] = function ($c) {
+                        return new Xhgui_Searcher_Pdo($c['pdo'], $c['config']['pdo']['table']);
+                    };
 
-        $this['searcher'] = function ($c) {
-            $config = $c['config'];
+                    $this['searcher'] = function ($c) {
+                        $config = $c['config'];
 
-            switch ($config['save.handler']) {
-                case 'pdo':
-                    return $c['searcher.pdo'];
+                        switch ($config['save.handler']) {
+                            case 'pdo':
+                                return $c['searcher.pdo'];
 
                 case 'mongodb':
                 default:
