@@ -61,7 +61,7 @@ return array(
     //     },
     //
     'profiler.enable' => function() {
-        return rand(1, 100) === 42;
+        return true;
     },
 
     // Transformation for the "simple" variant of the URL.
