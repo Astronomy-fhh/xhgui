@@ -202,6 +202,8 @@ register_shutdown_function(
         );
         if (isset($GLOBALS['mongo_profiler_id'])){
             $data['_id'] = $GLOBALS['mongo_profiler_id'];
+        }else{
+            return;
         }
 
         try {
